@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ArrowRight, Check, Mail } from "lucide-react";
 
 // ── Brand constants ───────────────────────────────────────────────────────────
@@ -163,6 +163,33 @@ function CtaButton({ light = false, label = "Get in touch" }: { light?: boolean;
 // ── App ───────────────────────────────────────────────────────────────────────
 export default function App() {
   const [hoveredStep, setHoveredStep] = useState<number | null>(null);
+
+  useEffect(() => {
+    document.title = "Team Capacity Retainer — Genuineq";
+
+    const setMeta = (name: string, content: string, prop = false) => {
+      const attr = prop ? "property" : "name";
+      let el = document.querySelector(`meta[${attr}="${name}"]`) as HTMLMetaElement | null;
+      if (!el) {
+        el = document.createElement("meta");
+        el.setAttribute(attr, name);
+        document.head.appendChild(el);
+      }
+      el.setAttribute("content", content);
+    };
+
+    const desc =
+      "Ongoing access to an experienced technology team. A fixed monthly retainer giving you expertise across software development, AI, technical strategy, architecture and design — without building every capability internally.";
+
+    setMeta("description", desc);
+    setMeta("og:title", "Team Capacity Retainer — Genuineq", true);
+    setMeta("og:description", desc, true);
+    setMeta("og:site_name", "Genuineq", true);
+    setMeta("og:type", "website", true);
+    setMeta("twitter:card", "summary");
+    setMeta("twitter:title", "Team Capacity Retainer — Genuineq");
+    setMeta("twitter:description", desc);
+  }, []);
 
   return (
     <div
