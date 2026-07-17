@@ -1,12 +1,17 @@
 import { useState } from "react";
-import { ArrowRight, Check, Phone, Mail } from "lucide-react";
+import { ArrowRight, Check, Mail } from "lucide-react";
 
-// ── Brand constants (extracted from genuineq.com assets) ──────────────────────
+// ── Brand constants ───────────────────────────────────────────────────────────
 const BRAND_BLUE = "#1544BD";
 const BRAND_NAVY = "#0B1829";
 const BRAND_WHITE = "#F8F9FE";
 
-// ── Genuine logo mark SVG (circular orbital mark) ────────────────────────────
+const MAILTO =
+  "mailto:cristina.iancu@genuineq.com" +
+  "?subject=Discovery%20Call%20Request" +
+  "&body=Hello%2C%0A%20%0AI%20would%20like%20to%20book%20a%20discovery%20call.%0A%20%0AName%3A%0AEmail%3A%0APhone%3A%0APreferred%20dates%20and%20time%3A%0A%0AThank%20you.";
+
+// ── Logo components ───────────────────────────────────────────────────────────
 function LogoMark({ size = 40, dark = false }: { size?: number; dark?: boolean }) {
   const fill = dark ? BRAND_WHITE : BRAND_NAVY;
   return (
@@ -15,12 +20,11 @@ function LogoMark({ size = 40, dark = false }: { size?: number; dark?: boolean }
         d="M29.4792 27.4812C18.6736 33.7756 19.7361 52.1063 11.158 41.4686C3.07553 31.446 8.88055 16.9481 19.3429 10.8139C29.6696 4.7589 45.6842 6.64814 50.4052 18.6666C55.4451 31.4944 39.7173 21.5179 29.4792 27.4812ZM42.6325 50.4684C42.6499 50.4583 42.6671 50.4483 42.6849 50.4382C46.8271 48.0511 52.1281 49.4283 54.5675 53.5189C54.919 53.1582 55.2648 52.7881 55.6021 52.4066C55.6044 52.4044 55.6069 52.4013 55.6093 52.3991C67.1896 39.3139 65.905 19.3767 52.7398 7.86741C39.5716 -3.64659 19.5035 -2.37408 7.91672 10.7104C-3.67011 23.7944 -2.38858 43.7357 10.7791 55.2498C18.9418 62.3874 29.7554 64.609 39.5566 62.152C37.1786 58.0826 38.5476 52.8626 42.6325 50.4684Z"
         fill={fill}
       />
-      <circle cx="47.094" cy="57.652" r="6.282" fill={BRAND_BLUE} />
+      <circle cx="47.094" cy="57.652" r="6.282" fill={fill} />
     </svg>
   );
 }
 
-// ── Inline landscape logo (wordmark + mark) ───────────────────────────────────
 function LogoFull({ dark = false }: { dark?: boolean }) {
   const textFill = dark ? BRAND_WHITE : BRAND_NAVY;
   return (
@@ -41,22 +45,20 @@ function LogoFull({ dark = false }: { dark?: boolean }) {
   );
 }
 
-// ── Content data ──────────────────────────────────────────────────────────────
+// ── Content data (updated from PDF v2) ───────────────────────────────────────
 const expertise = [
   "Software development",
-  "AI solutions and integrations",
+  "AI-powered features, processes and user experiences",
   "Technical strategy and consulting",
   "Software architecture",
   "UX and interface design",
-  "Manual quality assurance",
 ];
 
 const goodFit = [
   "Need additional capacity for an existing technology team or product",
+  "Want to develop or integrate AI capabilities",
   "Need expertise that is not consistently available in-house",
   "Want to move several technical initiatives forward without hiring multiple specialists",
-  "Require support with technical decisions, architecture or coordination",
-  "Want to develop or integrate AI capabilities",
   "Prefer the continuity of one technology partner over coordinating several separate providers",
 ];
 
@@ -96,7 +98,7 @@ const steps = [
   {
     num: "02",
     title: "Monthly planning",
-    desc: "Agree and prioritise the activities to be covered within the fixed monthly capacity.",
+    desc: "Agree and prioritize the activities to be covered within the fixed monthly capacity.",
   },
   {
     num: "03",
@@ -136,7 +138,27 @@ const plans = [
   },
 ];
 
-const techStack = ["Laravel and PHP", "Vue.js and Nuxt", "AI technologies and integrations"];
+const techStack = [
+  "Laravel and PHP",
+  "Vue.js and Nuxt",
+  "AI-powered features, processes and user experiences",
+];
+
+// ── CTA button ────────────────────────────────────────────────────────────────
+function CtaButton({ light = false, label = "Get in touch" }: { light?: boolean; label?: string }) {
+  return (
+    <a
+      href={MAILTO}
+      className="inline-flex items-center gap-2 px-7 py-3.5 text-sm font-semibold transition-all duration-150 hover:gap-3"
+      style={{
+        background: light ? BRAND_WHITE : BRAND_BLUE,
+        color: light ? BRAND_NAVY : BRAND_WHITE,
+      }}
+    >
+      {label} <ArrowRight size={15} />
+    </a>
+  );
+}
 
 // ── App ───────────────────────────────────────────────────────────────────────
 export default function App() {
@@ -168,10 +190,8 @@ export default function App() {
             ))}
           </nav>
           <a
-            href="https://genuineq.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm font-medium px-5 py-2.5 transition-all duration-150"
+            href={MAILTO}
+            className="inline-flex items-center gap-1.5 text-sm font-medium px-5 py-2.5 transition-all duration-150 hover:gap-2.5"
             style={{ background: BRAND_BLUE, color: BRAND_WHITE }}
           >
             Get in touch <ArrowRight size={14} />
@@ -181,7 +201,6 @@ export default function App() {
 
       {/* ── Hero ── */}
       <section style={{ background: BRAND_NAVY }} className="relative overflow-hidden">
-        {/* subtle background mark */}
         <div
           className="absolute right-0 top-0 w-[600px] h-[600px] pointer-events-none opacity-[0.04]"
           style={{ transform: "translate(20%, -15%)" }}
@@ -193,10 +212,7 @@ export default function App() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
             <div className="lg:col-span-8">
               <div className="flex items-center gap-2 mb-6">
-                <span
-                  className="inline-block w-6 h-px"
-                  style={{ background: BRAND_BLUE }}
-                />
+                <span className="inline-block w-6 h-px" style={{ background: BRAND_BLUE }} />
                 <p
                   className="text-xs font-medium uppercase tracking-widest"
                   style={{ color: BRAND_BLUE, letterSpacing: "0.18em" }}
@@ -216,16 +232,8 @@ export default function App() {
               >
                 Ongoing access to an experienced technology team — without building every capability internally.
               </p>
-              <div className="mt-10 flex items-center gap-4">
-                <a
-                  href="https://genuineq.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-7 py-3.5 text-sm font-semibold transition-all duration-150 hover:gap-3"
-                  style={{ background: BRAND_BLUE, color: BRAND_WHITE }}
-                >
-                  Book a discovery call <ArrowRight size={15} />
-                </a>
+              <div className="mt-10 flex items-center gap-5">
+                <CtaButton label="Get in touch" />
                 <a
                   href="https://genuineq.com"
                   target="_blank"
@@ -240,16 +248,20 @@ export default function App() {
               </div>
             </div>
 
+            {/* Hero sidebar — text bumped to 16px (text-base) */}
             <aside
-              className="lg:col-span-4 border-l pl-8 py-4 hidden lg:flex flex-col gap-5"
+              className="lg:col-span-4 border-l pl-8 py-4 hidden lg:flex flex-col gap-6"
               style={{ borderColor: "rgba(248,249,254,0.1)" }}
             >
-              <p className="text-sm leading-relaxed" style={{ color: "rgba(248,249,254,0.55)" }}>
-                A fixed number of hours reserved each month gives you access to expertise across software development, AI, technical strategy, architecture and design.
+              <p className="text-base leading-relaxed" style={{ color: "rgba(248,249,254,0.6)" }}>
+                Through a fixed number of hours reserved each month, you gain ongoing access to expertise across software development, AI, technical strategy, architecture and design.
+              </p>
+              <p className="text-base leading-relaxed" style={{ color: "rgba(248,249,254,0.6)" }}>
+                A stable core team develops an increasing understanding of your business and technology, reducing repeated onboarding and improving continuity over time.
               </p>
               <div className="space-y-3 pt-1">
                 {["Fixed monthly capacity", "One point of contact", "3-month minimum term"].map((t) => (
-                  <div key={t} className="flex items-center gap-2.5 text-xs" style={{ color: "rgba(248,249,254,0.45)" }}>
+                  <div key={t} className="flex items-center gap-2.5 text-sm" style={{ color: "rgba(248,249,254,0.45)" }}>
                     <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: BRAND_BLUE }} />
                     {t}
                   </div>
@@ -266,7 +278,7 @@ export default function App() {
           Expand your technology capacity without having to recruit and manage every capability internally.
         </p>
         <p className="text-base text-muted-foreground leading-relaxed mb-4">
-          The model is designed for companies that need additional capacity across software development, AI, technical strategy, architecture and design, without having to build every capability internally.
+          Through a fixed number of hours reserved each month, you gain ongoing access to expertise across software development, AI, technical strategy, architecture and design.
         </p>
         <p className="text-base text-muted-foreground leading-relaxed">
           A stable core team develops an increasing understanding of your business and technology, reducing repeated onboarding and improving continuity over time.
@@ -284,14 +296,11 @@ export default function App() {
             <div
               key={i}
               className="flex items-start gap-3.5 p-4 border border-border bg-background hover:bg-card transition-colors duration-150 group cursor-default"
-              style={{ borderLeftColor: "transparent" }}
+              style={{ borderLeftColor: "transparent", borderLeftWidth: "2px" }}
               onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.borderLeftColor = BRAND_BLUE)}
               onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.borderLeftColor = "transparent")}
             >
-              <span
-                className="text-[10px] font-mono mt-0.5 flex-shrink-0"
-                style={{ color: BRAND_BLUE }}
-              >
+              <span className="text-[10px] font-mono mt-0.5 flex-shrink-0" style={{ color: BRAND_BLUE }}>
                 {String(i + 1).padStart(2, "0")}
               </span>
               <span className="text-sm text-foreground leading-snug">{item}</span>
@@ -308,7 +317,7 @@ export default function App() {
         <p className="text-sm text-muted-foreground mb-8">The Team Capacity Retainer is designed for companies that:</p>
         <ul className="space-y-0">
           {goodFit.map((item, i) => (
-            <li key={i} className="flex items-start gap-4 py-4 border-b border-border first:border-t group">
+            <li key={i} className="flex items-start gap-4 py-4 border-b border-border first:border-t">
               <span
                 className="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center"
                 style={{ background: BRAND_BLUE }}
@@ -351,7 +360,7 @@ export default function App() {
             <div
               key={i}
               className="grid grid-cols-12 gap-4 py-5 border-b border-border cursor-default select-none transition-colors duration-150 -mx-4 px-4"
-              style={{ background: hoveredStep === i ? "rgba(21, 68, 189, 0.04)" : "transparent" }}
+              style={{ background: hoveredStep === i ? "rgba(21,68,189,0.04)" : "transparent" }}
               onMouseEnter={() => setHoveredStep(i)}
               onMouseLeave={() => setHoveredStep(null)}
             >
@@ -394,14 +403,11 @@ export default function App() {
               className="flex flex-col gap-5 p-6 border"
               style={{
                 borderColor: plan.highlight ? BRAND_BLUE : "var(--border)",
-                background: plan.highlight ? `rgba(21,68,189,0.04)` : "var(--card)",
+                background: plan.highlight ? "rgba(21,68,189,0.04)" : "var(--card)",
               }}
             >
               {plan.highlight && (
-                <span
-                  className="text-[9px] font-mono uppercase tracking-widest"
-                  style={{ color: BRAND_BLUE }}
-                >
+                <span className="text-[9px] font-mono uppercase tracking-widest" style={{ color: BRAND_BLUE }}>
                   Most popular
                 </span>
               )}
@@ -431,7 +437,7 @@ export default function App() {
       <section className="max-w-6xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           <div>
-            <p className="text-[10px] font-mono uppercase tracking-[0.15em] text-muted-foreground mb-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] mb-5" style={{ color: BRAND_BLUE }}>
               Technology focus
             </p>
             <h2 className="text-xl font-semibold mb-4">Primary technology stack</h2>
@@ -449,7 +455,7 @@ export default function App() {
           </div>
 
           <div className="lg:border-l lg:border-border lg:pl-16">
-            <p className="text-[10px] font-mono uppercase tracking-[0.15em] text-muted-foreground mb-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] mb-5" style={{ color: BRAND_BLUE }}>
               Commercial terms
             </p>
             <h2 className="text-xl font-semibold mb-6">Engagement period</h2>
@@ -460,14 +466,8 @@ export default function App() {
                 </p>
                 <p className="text-base font-medium text-foreground">Three months</p>
               </div>
-              <div
-                className="p-5 border"
-                style={{ borderColor: BRAND_BLUE, background: "rgba(21,68,189,0.04)" }}
-              >
-                <p
-                  className="text-[10px] font-mono uppercase tracking-widest mb-1.5"
-                  style={{ color: BRAND_BLUE }}
-                >
+              <div className="p-5 border" style={{ borderColor: BRAND_BLUE, background: "rgba(21,68,189,0.04)" }}>
+                <p className="text-[10px] font-mono uppercase tracking-widest mb-1.5" style={{ color: BRAND_BLUE }}>
                   Recommended
                 </p>
                 <p className="text-base font-medium text-foreground">
@@ -484,7 +484,6 @@ export default function App() {
 
       {/* ── CTA / About ── */}
       <section style={{ background: BRAND_NAVY }} className="relative overflow-hidden">
-        {/* decorative mark */}
         <div
           className="absolute left-0 bottom-0 pointer-events-none opacity-[0.05]"
           style={{ transform: "translate(-30%, 30%)" }}
@@ -528,15 +527,7 @@ export default function App() {
               <p className="text-base leading-relaxed mb-7" style={{ color: "rgba(248,249,254,0.6)" }}>
                 The next step is a discovery call to discuss your current priorities, technology stack, internal capacity and how we could support your team.
               </p>
-              <a
-                href="https://genuineq.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-semibold transition-all duration-150 hover:gap-3"
-                style={{ background: BRAND_BLUE, color: BRAND_WHITE }}
-              >
-                Book a discovery call <ArrowRight size={15} />
-              </a>
+              <CtaButton light label="Get in touch" />
             </div>
           </div>
         </div>
@@ -549,13 +540,13 @@ export default function App() {
             <LogoFull dark />
             <div className="flex items-center gap-6">
               <a
-                href="mailto:hello@genuineq.com"
+                href={MAILTO}
                 className="flex items-center gap-1.5 text-xs transition-colors duration-150"
                 style={{ color: "rgba(248,249,254,0.4)" }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = BRAND_WHITE)}
                 onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(248,249,254,0.4)")}
               >
-                <Mail size={13} /> hello@genuineq.com
+                <Mail size={13} /> cristina.iancu@genuineq.com
               </a>
               <a
                 href="https://genuineq.com"
@@ -590,7 +581,10 @@ function Section({ label, children }: { label: string; children: React.ReactNode
     <section className="max-w-6xl mx-auto px-6 py-16">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
         <div className="lg:col-span-3">
-          <p className="text-[10px] font-mono uppercase tracking-[0.15em] text-muted-foreground lg:pt-1">
+          <p
+            className="text-xs font-semibold uppercase tracking-[0.2em] lg:pt-1"
+            style={{ color: BRAND_BLUE }}
+          >
             {label}
           </p>
         </div>
