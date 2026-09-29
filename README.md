@@ -1,7 +1,7 @@
 
   # Static Web Page
 
-  The original project is available at https://genuineq.github.io/presentation-website/.
+  The project is available at https://genuineq.github.io/presentation-website/.
 
   ## Running the code
 
