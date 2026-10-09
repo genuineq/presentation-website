@@ -139,9 +139,9 @@ const plans = [
 ];
 
 const techStack = [
-  "Laravel and PHP",
-  "Vue.js and Nuxt",
-  "AI-powered features, processes and user experiences",
+  "AI-native features, processes and user experiences",
+  "Laravel/PHP, Javascript and Python",
+  "Vue.js/React/Javascript",
 ];
 
 // ── CTA button ────────────────────────────────────────────────────────────────
@@ -536,7 +536,7 @@ export default function App() {
               A technology partner,<br />not just a vendor.
             </h2>
             <p className="text-base leading-relaxed max-w-lg" style={{ color: "rgba(248,249,254,0.6)" }}>
-              Genuineq is a technology partner for companies building and evolving digital products with Laravel, Vue and AI. Our multidisciplinary approach gives clients access to both hands-on implementation and the broader technical expertise required to make informed decisions and move initiatives forward.
+              Genuineq is a technology partner for companies building and evolving digital products. Our multidisciplinary approach gives clients access to both hands-on implementation and the broader technical expertise required to make informed decisions and move initiatives forward.
             </p>
           </div>
 
